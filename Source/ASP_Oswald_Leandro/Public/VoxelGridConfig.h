@@ -30,4 +30,21 @@ public:
 	// Debug: Linienstaerke
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Debug")
 	float DebugLineThickness = 2.0f;
+
+	// Wie viele Samples pro Zelle pro Achse (z.B. 3 => 3x3 = 9)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sampling")
+	int32 SamplesPerAxis = 3;
+
+	// Trace Start hoehe ueber Zelle (Meter)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sampling")
+	float TraceStartAboveMeters = 3000.0f;
+
+	// Trace End hoehe unter Zelle (Meter)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sampling")
+	float TraceEndBelowMeters = 3000.0f;
+
+	// Collision channel fuer Terrain
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sampling")
+	TEnumAsByte<ECollisionChannel> TraceChannel = ECC_Visibility;
+
 };

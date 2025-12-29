@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "VoxelCellTypes.h"
+#include "VoxelHeightCache.h"
 #include "VoxelGridBaker.generated.h"
 
 class ATerrainReferenceActor;
@@ -46,11 +47,16 @@ public:
 
 	// Zeichnet nur wenige Zellen, on-the-fly berechnet
 	UFUNCTION(CallInEditor, Category="Voxel | Grid")
-	void DebugDrawSomeCells(int32 MaxCellsToDraw = 5000);
+	void DebugDrawSomeCells(int32 MaxCellsToDraw = 1000);
 
 	UFUNCTION(CallInEditor, Category="Voxel | Grid")
 	void DebugDrawSomeCells50();
 
+	UPROPERTY(EditAnywhere, Category="Output")
+	TObjectPtr<UVoxelHeightCache> HeightCache;
+
+	UFUNCTION(CallInEditor, Category="Voxel|Bake")
+	void BakeMaxHeights();
 
 protected:
 	// Called when the game starts or when spawned
