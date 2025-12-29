@@ -8,7 +8,7 @@ public class ASP_Oswald_Leandro : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Landscape"});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
