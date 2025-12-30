@@ -3,3 +3,10 @@
 
 #include "HeightQueryEditorSubsystem.h"
 
+void UHeightQueryEditorSubsystem::SetClickQueryEnabled(bool bEnabled)
+{
+}
+
+void UHeightQueryEditorSubsystem::SetSources(AVoxelGridBaker* InGridBaker, UVoxelHeightCache* InCache)
+{
+}

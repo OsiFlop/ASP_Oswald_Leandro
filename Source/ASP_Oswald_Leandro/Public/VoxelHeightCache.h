@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class ASP_OSWALD_LEANDRO_API UVoxelHeightCache : public UDataAsset
 {
 	GENERATED_BODY()

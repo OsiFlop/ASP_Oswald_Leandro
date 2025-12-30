@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "VoxelGridBaker.h"
 #include "TerrainReferenceActor.h"
 #include "VoxelGridConfig.h"
 #include "DrawDebugHelpers.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "LandscapeProxy.h"
+#include "VoxelHeightCache.h"
 
 
 // Sets default values

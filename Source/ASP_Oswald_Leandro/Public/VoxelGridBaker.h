@@ -4,12 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "VoxelCellTypes.h"
-#include "VoxelHeightCache.h"
 #include "VoxelGridBaker.generated.h"
 
 class ATerrainReferenceActor;
 class UVoxelGridConfig;
+class UVoxelHeightCache;
 
 UCLASS()
 class ASP_OSWALD_LEANDRO_API AVoxelGridBaker : public AActor
@@ -25,6 +24,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category="Config")
 	TObjectPtr<UVoxelGridConfig> GridConfig;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Output")
+	UVoxelHeightCache* HeightCache = nullptr;
 
 	// Grid Daten (minimal)
 	UPROPERTY(VisibleAnywhere, Category="Grid")
@@ -52,11 +54,10 @@ public:
 	UFUNCTION(CallInEditor, Category="Voxel | Grid")
 	void DebugDrawSomeCells50();
 
-	UPROPERTY(EditAnywhere, Category="Output")
-	TObjectPtr<UVoxelHeightCache> HeightCache;
-
 	UFUNCTION(CallInEditor, Category="Voxel|Bake")
 	void BakeMaxHeights();
+
+	
 
 protected:
 	// Called when the game starts or when spawned
@@ -71,4 +72,6 @@ private:
 
 	// Hilfsfunktionen fuer Zellberechnung
 	void GetCellMinMaxXY(const int32 X, const int32 Y, FVector2D& OutMin, FVector2D& OutMax) const;
+
+	
 };
