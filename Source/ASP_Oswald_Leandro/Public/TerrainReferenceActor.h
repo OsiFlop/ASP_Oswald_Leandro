@@ -1,4 +1,5 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Helper actor providing access to landscape reference and world bounds
+// Used as a shared terrain source for grid and height queries
 
 #pragma once
 
@@ -17,32 +18,23 @@ public:
 	// Sets default values for this actor's properties
 	ATerrainReferenceActor();
 
+	// Reference to landscape proxy actor
 	UPROPERTY(EditAnywhere, Category="Terrain")
 	TObjectPtr<ALandscapeProxy> Landscape;
 
-	// Falls Landscape nicht gesetzt ist
+	// Automatically find landscape in current world
 	UFUNCTION(CallInEditor, Category="Terrain")
 	void AutoFindLandscape();
 
-	// World Bounds vom Landscape (AABB)
+	// Get landscape world-space bounds (Axis-Aligned Bounding Box)
 	UFUNCTION(BlueprintCallable, Category="Terrain")
 	bool GetLandscapeWorldBounds(FVector& OutMin, FVector& OutMax) const;
 
-	// True wenn WorldPos innerhalb Bounds liegt
+	// Check if world position is inside landscape bounds
 	UFUNCTION(BlueprintCallable, Category="Terrain")
 	bool IsWorldPosInsideLandscapeBounds(const FVector& WorldPos) const;
 
-	// For Testin ONLY
+	// Debug print and draw landscape bounds
 	UFUNCTION(CallInEditor, Category="Terrain|Debug")
 	void DebugPrintLandscapeBounds();
-
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 };

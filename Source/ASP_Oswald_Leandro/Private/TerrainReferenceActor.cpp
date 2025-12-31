@@ -1,4 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Helper actor providing access to landscape reference and world bounds
+// Used as a shared terrain source for grid and height queries
+
 #include "TerrainReferenceActor.h"
 #include "Landscape.h"
 #include "LandscapeProxy.h"
@@ -6,58 +8,60 @@
 #include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
 
-// Was macht dieses Script?
-// - Hält eine Referenz auf "ALandscapeProxy"
-// - Kann Landscape automatisch finden (optional)
-// - Liefert World Bounds (Min/Max) und Transform-Infos
-
 // Sets default values
 ATerrainReferenceActor::ATerrainReferenceActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
 }
 
-// Falls Landscape nicht gesetzt ist
+// Automatically find first landscape in the world
 void ATerrainReferenceActor::AutoFindLandscape()
 {
+	// Guard: valid world
 	if (!GetWorld()) return;
 
+	// Find all landscape proxy actors
 	TArray<AActor*> Found;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ALandscapeProxy::StaticClass(), Found);
 
+	// Use first found landscape
 	if (Found.Num() > 0)
 	{
 		Landscape = Cast<ALandscapeProxy>(Found[0]);
 	}
 }
 
-// World Bounds vom Landscape (AABB)
+// Get landscape world-space bounding box (Axis-Aligned Bounding Box)
 bool ATerrainReferenceActor::GetLandscapeWorldBounds(FVector& OutMin, FVector& OutMax) const
 {
+	// Guard: landscape reference
 	if (!Landscape) return false;
 
-	// LandscapeProxy hat RootComponent Bounds
+	// Read bounds from landscape components
 	const FBox Bounds = Landscape->GetComponentsBoundingBox(true);
 	OutMin = Bounds.Min;
 	OutMax = Bounds.Max;
 	return true;
 }
 
-// True wenn WorldPos innerhalb Bounds liegt
+// Check if world position lies inside landscape bounds
 bool ATerrainReferenceActor::IsWorldPosInsideLandscapeBounds(const FVector& WorldPos) const
 {
 	FVector Min, Max;
+
+	// Guard: valid bounds
 	if (!GetLandscapeWorldBounds(Min, Max)) return false;
 
+	// XY bounds test (Axis-Aligned Bounding Box)
 	return (WorldPos.X >= Min.X && WorldPos.X <= Max.X &&
 			WorldPos.Y >= Min.Y && WorldPos.Y <= Max.Y);
 }
 
-// For Testing ONLY
+// Debug print and visualize landscape bounds
 void ATerrainReferenceActor::DebugPrintLandscapeBounds()
 {
+	// Guard: valid world
 	if (!GetWorld())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("World is null"));
@@ -65,39 +69,27 @@ void ATerrainReferenceActor::DebugPrintLandscapeBounds()
 	}
 
 	FVector Min, Max;
+
+	// Guard: valid landscape
 	if (!GetLandscapeWorldBounds(Min, Max))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Landscape not valid"));
 		return;
 	}
 
+	// Log bounds values
 	UE_LOG(LogTemp, Display, TEXT("Landscape Bounds Min: %s"), *Min.ToString());
 	UE_LOG(LogTemp, Display, TEXT("Landscape Bounds Max: %s"), *Max.ToString());
 
-	// DEBUG BOX IM VIEWPORT
+	// Debug draw: bounding box in viewport
 	DrawDebugBox(
 		GetWorld(),
 		(Min + Max) * 0.5f,     // Center
 		(Max - Min) * 0.5f,     // Extent
 		FColor::Green,
 		false,                  // Not persistent
-		10.0f,                  // Lifetime (Sekunden)
+		10.0f,                  // Lifetime 
 		0,
-		50.0f                   // Linienstaerke
+		50.0f                   // Thickness
 	);
 }
-
-// Called when the game starts or when spawned
-void ATerrainReferenceActor::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void ATerrainReferenceActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-

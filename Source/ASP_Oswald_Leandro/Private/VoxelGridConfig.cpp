@@ -1,5 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+// Data asset implementation for voxel grid configuration
+// Stores grid, sampling, tracing, and debug parameters
 
 #include "VoxelGridConfig.h"
-

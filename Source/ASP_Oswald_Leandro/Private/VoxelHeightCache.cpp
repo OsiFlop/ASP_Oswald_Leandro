@@ -1,5 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+// Runtime data container for baked voxel height results
+// Stores per-cell max height and grid metadata
 
 #include "VoxelHeightCache.h"
-
