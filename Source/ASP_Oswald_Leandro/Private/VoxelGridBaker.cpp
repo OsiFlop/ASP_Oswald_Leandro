@@ -319,6 +319,11 @@ void AVoxelGridBaker::BuildPreviewVoxels()
 	PreviewHISM->SetStaticMesh(CubeMesh);
 	PreviewHISM->SetMobility(EComponentMobility::Movable);
 
+	if (PreviewMaterial)
+	{
+		PreviewHISM->SetMaterial(0, PreviewMaterial);
+	}
+
 	// Choose preview center (actor location or grid center)
 	FVector CenterWorld = (GridMinWorld + GridMaxWorld) * 0.5f;
 	if (PreviewCenterActor)

@@ -97,6 +97,10 @@ public:
 	UFUNCTION(CallInEditor, Category="Voxel|Preview")
 	void ClearPreviewVoxels();
 
+	// Color of cubes
+	UPROPERTY(EditAnywhere, Category="Preview")
+	UMaterialInterface* PreviewMaterial = nullptr;
+
 private:
 	// Validate grid parameters
 	bool IsGridValid() const;

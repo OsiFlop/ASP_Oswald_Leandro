@@ -75,9 +75,14 @@ void AHeightQueryProbeActor::QueryHeightAtMyLocation()
 	const int32 Idx = HeightCache->ToIndex(X, Y);
 	const float MaxZcm = HeightCache->MaxHeightCm[Idx];
 
+	// Convert to ASL using calibrated sea level (cm -> m)
+	const float SeaLevelCm = HeightCache->SeaLevelWorldZCm;
+	const float HeightASLm = (MaxZcm - SeaLevelCm) / 100.0f;
+
 	// Log query result (world pos, cell, height)
-	UE_LOG(LogTemp, Display, TEXT("Query @ WorldXY(%.1f, %.1f) -> Cell(%d,%d) -> MaxZ=%.1f cm (%.2f m)"),
-		P.X, P.Y, X, Y, MaxZcm, MaxZcm / 100.0f);
+	UE_LOG(LogTemp, Display, TEXT("Query @ WorldXY(%.1f, %.1f) -> Cell(%d,%d) -> WorldZ=%.1f cm (%.2f m), SeaLevel=%.1f cm -> ASL=%.2f m"),
+		P.X, P.Y, X, Y, MaxZcm, MaxZcm / 100.0f, SeaLevelCm, HeightASLm
+	);
 
 	// Optional debug visualization at queried height
 	if (bDrawMarker && GetWorld())
