@@ -181,3 +181,22 @@
 - Technische Inhalte verständlich erklären
 - Reduktion auf das Wesentliche
 - Dokumentation eines technischen Workflows
+
+---
+
+## Finalisierung, Dokumentation & Reflexion
+**Zeitraum:** 01.02.2026 – 18.02.2026
+
+**Tätigkeiten:**
+- Fertigstellung des E-Learnings (Inhalt überarbeitet und strukturiert)
+- Erstellung des Leaflets
+- Ausformulierung der selbstkritischen Reflexion
+- Überarbeitung der Dokumentation
+- Vorbereitung der finalen Abgabe (Repository, Struktur, Kontrolle)
+
+**Gelernt:**
+- Inhalte zielgerichtet zusammenfassen
+- Unterschied zwischen technischer Umsetzung und didaktischer Aufbereitung
+- Eigene Arbeit kritisch analysieren
+- Reflexion von Stärken und Schwächen im Projektverlauf
+- Bedeutung sauberer Abschlusskontrolle vor Abgabe
